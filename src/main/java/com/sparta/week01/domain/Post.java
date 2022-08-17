@@ -1,7 +1,6 @@
 package com.sparta.week01.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sparta.week01.dto.PasswordRequestDto;
 import com.sparta.week01.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
