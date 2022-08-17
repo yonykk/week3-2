@@ -2,6 +2,8 @@ package com.sparta.week01.controller;
 
 import com.sparta.week01.domain.Post;
 import com.sparta.week01.common.CommonResponse;
+import com.sparta.week01.dto.PostResponseDto;
+import com.sparta.week01.dto.ResponseDto;
 import com.sparta.week01.repository.PostRepository;
 import com.sparta.week01.dto.PostRequestDto;
 import com.sparta.week01.service.PostService;
@@ -19,7 +21,7 @@ public class PostController {
 
     //저장된 모든 Post의 목록을 조회하는 메서드. CommonResponse 객체로 감싸 형식에 맞게 반환한다.
     @GetMapping("/api/post")
-    public CommonResponse<List<PostRequestDto>> getPost() {
+    public CommonResponse<List<PostResponseDto>> getPost() {
         return postService.getPost();
     }
 
@@ -32,7 +34,7 @@ public class PostController {
 
     //Post 수정 메서드. DB에서 같은 값의 id를 찾아내어 전달받은 dto의 값으로 바꿔치기한다. 수정된 post 반환
     @PutMapping("/api/post/{id}")
-    public CommonResponse<Post> updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    public CommonResponse<ResponseDto> updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.update(id, requestDto);
     }
 
@@ -44,7 +46,7 @@ public class PostController {
 
     //해당 id의 Post를 조회한다. CommonResponse 객체로 형식에 맞게 감싸서 반환한다.
     @GetMapping("/api/post/{id}")
-    public CommonResponse<Post> getPost(@PathVariable Long id) {
+    public CommonResponse<ResponseDto> getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
