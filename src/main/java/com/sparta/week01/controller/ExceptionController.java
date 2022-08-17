@@ -1,0 +1,29 @@
+package com.sparta.week01.controller;
+
+import com.sparta.week01.common.CommonResponse;
+import com.sparta.week01.common.exception.Exception;
+import com.sparta.week01.common.exception.InvalidIdException;
+import com.sparta.week01.domain.Post;
+import com.sparta.week01.dto.ErrorDto;
+import com.sparta.week01.service.ResponseService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+@RequiredArgsConstructor
+@Slf4j
+public class ExceptionController {
+
+    private final ResponseService responseService;
+
+
+    //전역 예외처리 메소드. Exception의 메시지와 코드를 받아와서 responseService로 넘겨준다.
+    @ExceptionHandler(InvalidIdException.class)
+    private CommonResponse<Post> invalidateIdException(InvalidIdException e){
+        log.info(e.getMessage());
+        ErrorDto dto = new ErrorDto(Exception.INVALIDATE_ID.getCode(),Exception.INVALIDATE_ID.getMessage());
+        return responseService.getErrorResponse(dto);
+    }
+}
