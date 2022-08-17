@@ -1,6 +1,5 @@
 package com.sparta.week01.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparta.week01.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Getter
-@JsonIgnoreProperties({"password"}) //비밀번호는 가리는 것으로 처리한다.
 public class Post extends Timestamped {
 
     @Id
