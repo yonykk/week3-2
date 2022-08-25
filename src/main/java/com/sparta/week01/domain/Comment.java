@@ -20,7 +20,7 @@ public class Comment extends Timestamped {
     private String content; //내용
 
     @Column(name = "post_id", insertable = false, updatable = false)
-    private Long postId; //내용
+    private Long postId;
 
     @ManyToOne
     @JsonIgnore
@@ -28,7 +28,7 @@ public class Comment extends Timestamped {
     private Post  post;
 
     @Column(nullable = false)
-    private String author; //내용
+    private String author; //작성자
 
 
     //Dto를 통한 생성자

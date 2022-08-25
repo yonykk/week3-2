@@ -1,7 +1,5 @@
 package com.sparta.week01.security.provider;
 
-import com.sparta.week01.common.exception.InvalidTokenException;
-import com.sparta.week01.common.exception.InvalidUsernameException;
 import com.sparta.week01.domain.RefreshToken;
 import com.sparta.week01.dto.TokenDto;
 import com.sparta.week01.repository.RefreshTokenRepository;
@@ -72,28 +70,13 @@ public class TokenProvider {
                 .build();
     }
 
-
-
         // 토큰의 유효 및 만료 확인
         public boolean validateToken (String token){
             try {
                 Long now = new Date().getTime();
                 return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getExpiration().getTime() >= now;
             } catch(Exception e) {
-                throw new InvalidTokenException();
+                return false;
             }
     }
-
-    // 토큰의 유효 및 만료 확인
-    public boolean refreshValidateToken (String username){
-        try {
-            Long now = new Date().getTime();
-            String token = refreshTokenRepository.findByUsername(username).orElseThrow(InvalidUsernameException::new).getRefreshToken();
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getExpiration().getTime() >= now;
-        } catch(Exception e) {
-            throw new InvalidTokenException();
-
-        }
-    }
-
 }

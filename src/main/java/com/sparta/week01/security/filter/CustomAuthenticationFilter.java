@@ -41,11 +41,10 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null && jwtTokenProvider.validateToken(token)) {   // token 검증
             String username = jwtTokenProvider.getUsername(token);
-            if(jwtTokenProvider.refreshValidateToken(username)) { //refresh 토큰 검증
                 Authentication authentication = new UsernamePasswordAuthenticationToken(jwtTokenProvider.getUsername(token), null, null);
                 SecurityContext context = SecurityContextHolder.getContext();
                 context.setAuthentication(authentication);
-            }
+
         }
 
         filterChain.doFilter(request, response);
