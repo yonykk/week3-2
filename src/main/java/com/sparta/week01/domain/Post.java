@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -25,24 +27,26 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String content; //내용
 
-    @Column(nullable = false)
-    private String password; //비밀번호
-
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList = new ArrayList<>();
 
     //Dto를 통한 생성자
-    public Post(PostRequestDto requestDto) {
+    public Post(PostRequestDto requestDto, String username) {
         this.title = requestDto.getTitle();
-        this.author = requestDto.getAuthor();
+        this.author = username;
         this.content = requestDto.getContent();
-        this.password = requestDto.getPassword();
     }
 
     //수정시 입력받은 Dto의 내용으로 변경함.
     public void update(PostRequestDto post) {
         this.title = post.getTitle();
-        this.author = post.getAuthor();
         this.content = post.getContent();
-        this.password = post.getPassword();
+    }
+    public void addComment(Comment comment){
+        this.commentList.add(comment);
+    }
+    public void deleteComment(Comment comment){
+        this.commentList.remove(comment);
     }
 }
 
