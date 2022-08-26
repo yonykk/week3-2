@@ -39,7 +39,6 @@ public class CommentService {
         Post post = postRepository.findById(requestDto.getPostId()).orElseThrow(InvalidIdException::new);
         if(!comment.getAuthor().equals(username))
             throw new WrongRequestException();
-        post.addComment(comment);
         comment.update(requestDto,post);
         return new CommonResponse<>(new CommentResponseDto(comment));
     }
