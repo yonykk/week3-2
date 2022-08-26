@@ -42,11 +42,5 @@ public class Post extends Timestamped {
         this.title = post.getTitle();
         this.content = post.getContent();
     }
-    public void addComment(Comment comment){
-        this.commentList.add(comment);
-    }
-    public void deleteComment(Comment comment){
-        this.commentList.remove(comment);
-    }
 }
 
