@@ -37,7 +37,6 @@ public class CommentController {
     public CommonResponse<CommentResponseDto> createCommentList(@RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal String username) {
         Post post = postRepository.findById(requestDto.getPostId()).orElseThrow(InvalidIdException::new);
         Comment comment = new Comment(requestDto,post, username);
-        post.addComment(comment);
         commentRepository.save(comment);
         return new CommonResponse<>(new CommentResponseDto(comment));
     }
